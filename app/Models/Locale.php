@@ -16,10 +16,9 @@ class Locale extends Model
     {
         return $this->hasMany(Translation::class);
     }
+
     public function getRouteKeyName()
     {
         return 'id';
     }
-
-
 }

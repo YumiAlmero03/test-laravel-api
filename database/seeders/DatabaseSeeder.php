@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
         ]);
-        
+
         $this->call([
             LocaleSeeder::class,
             TagSeeder::class,

@@ -15,5 +15,4 @@ class Tag extends Model
     {
         return $this->belongsToMany(Translation::class, 'tag_translation');
     }
-
 }

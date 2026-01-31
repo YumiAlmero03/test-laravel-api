@@ -9,6 +9,7 @@ class Translation extends Model
 {
     /** @use HasFactory<\Database\Factories\TranslationFactory> */
     use HasFactory;
+
     protected $fillable = ['locale_id', 'key', 'value'];
 
     public function scopeWithTags($query, array $tags)
@@ -16,8 +17,8 @@ class Translation extends Model
         if (empty($tags)) {
             return $query; // 👈 no filter → return all translations
         }
-        return $query->whereHas('tags', fn ($q) =>
-            $q->whereIn('name', $tags)
+
+        return $query->whereHas('tags', fn ($q) => $q->whereIn('name', $tags)
         );
     }
 
@@ -30,5 +31,4 @@ class Translation extends Model
     {
         return $this->belongsToMany(Tag::class, 'tag_translations');
     }
-
 }

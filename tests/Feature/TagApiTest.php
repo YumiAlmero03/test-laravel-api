@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Sanctum\Sanctum;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class TagApiTest extends TestCase
 {
@@ -26,7 +26,7 @@ class TagApiTest extends TestCase
             ->assertOk()
             ->assertJsonStructure(['data']);
     }
-    
+
     public function test_can_create_tag()
     {
         $response = $this->postJson('/api/tags', [
@@ -34,7 +34,7 @@ class TagApiTest extends TestCase
         ]);
 
         $response->assertStatus(201)
-                 ->assertJsonFragment(['name' => 'new-tag']);
+            ->assertJsonFragment(['name' => 'new-tag']);
 
         $this->assertDatabaseHas('tags', ['name' => 'new-tag']);
     }
@@ -44,7 +44,7 @@ class TagApiTest extends TestCase
         Tag::create(['name' => 'existing-tag']);
 
         $this->postJson('/api/tags', ['name' => 'existing-tag'])
-             ->assertStatus(422);
+            ->assertStatus(422);
     }
 
     public function test_can_update_tag()
@@ -54,8 +54,8 @@ class TagApiTest extends TestCase
         $this->putJson("/api/tags/{$tag->id}", [
             'name' => 'updated-name',
         ])
-        ->assertStatus(200)
-        ->assertJsonFragment(['name' => 'updated-name']);
+            ->assertStatus(200)
+            ->assertJsonFragment(['name' => 'updated-name']);
     }
 
     public function test_can_delete_tag()
@@ -63,7 +63,7 @@ class TagApiTest extends TestCase
         $tag = Tag::create(['name' => 'to-be-deleted']);
 
         $this->deleteJson("/api/tags/{$tag->id}")
-             ->assertStatus(204);
+            ->assertStatus(204);
 
         $this->assertDatabaseMissing('tags', ['name' => 'to-be-deleted']);
     }
@@ -90,10 +90,10 @@ class TagApiTest extends TestCase
 
         // Assertions
         $response->assertOk()
-                ->assertJsonStructure(['data']); // pagination structure
+            ->assertJsonStructure(['data']); // pagination structure
 
         $data = $response->json('data');
-        $this->assertCount(10_000, $data, "Expected 10k rows, got " . count($data));
+        $this->assertCount(10_000, $data, 'Expected 10k rows, got '.count($data));
 
         // Check performance
         $this->assertLessThan(
@@ -104,6 +104,4 @@ class TagApiTest extends TestCase
 
         echo "Tags endpoint loaded 100k rows in {$duration}s\n";
     }
-
-    
 }

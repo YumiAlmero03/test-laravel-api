@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Sanctum\Sanctum;
 use App\Models\Locale;
 use App\Models\Tag;
 use App\Models\Translation;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class TranslationApiTest extends TestCase
 {
@@ -26,7 +26,7 @@ class TranslationApiTest extends TestCase
             ->assertOk()
             ->assertJsonStructure(['data']);
     }
-    
+
     public function test_can_create_translation()
     {
         $locale = Locale::firstOrCreate(['code' => 'en', 'name' => 'English']);
@@ -39,7 +39,7 @@ class TranslationApiTest extends TestCase
             'tags' => [$tag->id],
         ]);
         $response->assertStatus(201)
-                 ->assertJsonFragment(['key' => 'welcome.message', 'value' => 'Welcome to our application!']);
+            ->assertJsonFragment(['key' => 'welcome.message', 'value' => 'Welcome to our application!']);
         $this->assertDatabaseHas('translations', ['key' => 'welcome.message', 'value' => 'Welcome to our application!']);
     }
 
@@ -66,13 +66,13 @@ class TranslationApiTest extends TestCase
             'locale_id' => $locale->id,
             'key' => 'update.this',
             'value' => 'the Old Value',
-        ]); 
+        ]);
         $this->putJson("/api/translations/{$translation->id}", [
             'locale_id' => $locale->id,
             'key' => 'update.this',
             'value' => 'Updated Value',
         ])
-        ->assertStatus(200);
+            ->assertStatus(200);
         $this->assertDatabaseHas('translations', ['id' => $translation->id, 'value' => 'Updated Value']);
     }
 
@@ -85,7 +85,7 @@ class TranslationApiTest extends TestCase
             'value' => 'To be deleted',
         ]);
         $this->deleteJson("/api/translations/{$translation->id}")
-             ->assertStatus(204);
+            ->assertStatus(204);
         $this->assertDatabaseMissing('translations', ['id' => $translation->id]);
     }
 
@@ -110,10 +110,10 @@ class TranslationApiTest extends TestCase
 
         // Assertions
         $response->assertOk()
-                ->assertJsonStructure(['data']); // pagination structure
+            ->assertJsonStructure(['data']); // pagination structure
 
         $data = $response->json('data');
-        $this->assertCount(10_000, $data, "Expected 10k rows, got " . count($data));
+        $this->assertCount(10_000, $data, 'Expected 10k rows, got '.count($data));
 
         // Check performance
         $this->assertLessThan(
@@ -124,5 +124,4 @@ class TranslationApiTest extends TestCase
 
         echo "Translations endpoint loaded 100k rows in {$duration}s\n";
     }
-
 }

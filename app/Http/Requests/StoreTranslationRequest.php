@@ -32,8 +32,7 @@ class StoreTranslationRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('translations', 'key')
-                    ->where(fn ($q) =>
-                        $q->where('locale_id', $this->input('locale_id'))
+                    ->where(fn ($q) => $q->where('locale_id', $this->input('locale_id'))
                     )
                     ->ignore($translationId),
             ],
@@ -42,8 +41,7 @@ class StoreTranslationRequest extends FormRequest
                 'required',
                 'string',
                 Rule::unique('translations', 'value')
-                    ->where(fn ($q) =>
-                        $q->where('locale_id', $this->input('locale_id'))
+                    ->where(fn ($q) => $q->where('locale_id', $this->input('locale_id'))
                     )
                     ->ignore($translationId),
             ],

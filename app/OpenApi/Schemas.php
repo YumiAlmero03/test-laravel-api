@@ -1,4 +1,5 @@
 <?php
+
 namespace App\OpenApi;
 
 use OpenApi\Annotations as OA;
@@ -8,6 +9,7 @@ use OpenApi\Annotations as OA;
  *     schema="Locale",
  *     type="object",
  *     required={"id","code"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="code", type="string", example="en"),
  *     @OA\Property(property="name", type="string", example="English")
@@ -17,6 +19,7 @@ use OpenApi\Annotations as OA;
  *     schema="Tag",
  *     type="object",
  *     required={"id","name"},
+ *
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="mobile")
  * )
@@ -25,6 +28,7 @@ use OpenApi\Annotations as OA;
  *     schema="Translation",
  *     type="object",
  *     required={"id","key","value","locale"},
+ *
  *     @OA\Property(property="id", type="integer", example=10),
  *     @OA\Property(property="key", type="string", example="welcome.title"),
  *     @OA\Property(property="value", type="string", example="Welcome"),
@@ -32,6 +36,7 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(
  *         property="tags",
  *         type="array",
+ *
  *         @OA\Items(ref="#/components/schemas/Tag")
  *     )
  * )
@@ -40,12 +45,14 @@ use OpenApi\Annotations as OA;
  *     schema="ValidationError",
  *     type="object",
  *     required={"message","errors"},
+ *
  *     @OA\Property(property="message", type="string", example="The given data was invalid."),
  *     @OA\Property(
  *         property="errors",
  *         type="object",
  *         additionalProperties=@OA\Schema(
  *             type="array",
+ *
  *             @OA\Items(type="string", example="This field is required.")
  *         )
  *     )

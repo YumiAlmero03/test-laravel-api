@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TagFactory extends Factory
 {
@@ -13,6 +13,7 @@ class TagFactory extends Factory
     {
         static $i = 1;
         $i++;
+
         return [
             'name' => "Tag {$i}",
         ];

@@ -24,7 +24,7 @@ class StoreTagRequest extends FormRequest
         $id = $this->route('id') ?? null;
 
         return [
-            'name' => 'required|string|max:50|unique:tags,name,' . $id,
+            'name' => 'required|string|max:50|unique:tags,name,'.$id,
         ];
     }
 }

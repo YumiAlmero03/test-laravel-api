@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -29,8 +28,8 @@ class TranslationSeeder extends Seeder
             for ($j = $i; $j < $i + $chunkSize && $j <= $total; $j++) {
                 $rows[] = [
                     'locale_id' => $locales[array_rand($locales)],
-                    'key' => 'app.key_' . $j,
-                    'value' => 'Translation value ' . $j,
+                    'key' => 'app.key_'.$j,
+                    'value' => 'Translation value '.$j,
                     'created_at' => $now,
                     'updated_at' => $now,
                 ];

@@ -2,12 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Laravel\Sanctum\Sanctum;
-use App\Models\User;
 use App\Models\Locale;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class LocaleApiTest extends TestCase
 {
@@ -35,7 +34,7 @@ class LocaleApiTest extends TestCase
         ]);
 
         $response->assertStatus(201)
-                 ->assertJsonFragment(['code' => 'nl', 'name' => 'Netherlands']);
+            ->assertJsonFragment(['code' => 'nl', 'name' => 'Netherlands']);
 
         $this->assertDatabaseHas('locales', ['code' => 'nl', 'name' => 'Netherlands']);
     }
@@ -44,7 +43,7 @@ class LocaleApiTest extends TestCase
     {
         Locale::create(['code' => 'en', 'name' => 'English']);
         $this->postJson('/api/locales', ['code' => 'en', 'name' => 'English Duplicate'])
-             ->assertStatus(422);
+            ->assertStatus(422);
     }
 
     public function test_can_update_locale()
@@ -54,15 +53,15 @@ class LocaleApiTest extends TestCase
             'code' => 'es',
             'name' => 'Español',
         ])
-        ->assertStatus(200)
-        ->assertJsonFragment(['name' => 'Español']);
+            ->assertStatus(200)
+            ->assertJsonFragment(['name' => 'Español']);
     }
 
     public function test_can_delete_locale()
     {
         $locale = Locale::create(['code' => 'l1', 'name' => 'Locale to be deleted']);
         $this->deleteJson("/api/locales/{$locale->id}")
-             ->assertStatus(204);
+            ->assertStatus(204);
         $this->assertDatabaseMissing('locales', ['id' => $locale->id]);
     }
 }

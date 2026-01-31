@@ -3,36 +3,44 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use App\Models\User;
 
 class AuthController extends Controller
 {
     /**
      * @OA\PathItem(
      *     path="/login",
+     *
      *     @OA\Post(
      *         summary="Login with email and password",
      *         description="Authenticate user and get Sanctum token",
      *         tags={"Authentication"},
+     *
      *         @OA\RequestBody(
      *             required=true,
      *             description="User credentials",
+     *
      *             @OA\JsonContent(
      *                 required={"email", "password"},
+     *
      *                 @OA\Property(property="email", type="string", format="email", example="test@example.com"),
      *                 @OA\Property(property="password", type="string", format="password", example="password")
      *             )
      *         ),
+     *
      *         @OA\Response(
      *             response=200,
      *             description="Login successful",
+     *
      *             @OA\JsonContent(
+     *
      *                 @OA\Property(property="token", type="string", example="1|abcdef123456")
      *             )
      *         ),
+     *
      *         @OA\Response(
      *             response=422,
      *             description="Invalid credentials"
@@ -64,15 +72,19 @@ class AuthController extends Controller
     /**
      * @OA\PathItem(
      *     path="/logout",
+     *
      *     @OA\Post(
      *         summary="Logout user",
      *         description="Revoke Sanctum token",
      *         tags={"Authentication"},
      *         security={{"bearerAuth":{}}},
+     *
      *         @OA\Response(
      *             response=200,
      *             description="Logout successful",
+     *
      *             @OA\JsonContent(
+     *
      *                 @OA\Property(property="message", type="string", example="Logged out successfully")
      *             )
      *         )
