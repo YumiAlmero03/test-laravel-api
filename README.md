@@ -218,7 +218,7 @@ DELETE /api/translations/{id}
 ### Search
 
 ```http
-GET /api/translations/search
+GET /api/translations
 ```
 
 **Query parameters:**
@@ -287,6 +287,10 @@ Returns a flat key-value JSON structure optimized for frontend i18n libraries.
 
 ```http
 GET /api/locales
+POST /api/locales
+PUT    /api/locales/{id}
+GET    /api/locales/{id}
+DELETE /api/locales/{id}
 ```
 
 Returns all available locales.
@@ -320,6 +324,10 @@ Returns all available locales.
 
 ```http
 GET /api/tags
+POST /api/tags
+PUT    /api/tags/{id}
+GET    /api/tags/{id}
+DELETE /api/tags/{id}
 ```
 
 Returns all available tags.
@@ -478,8 +486,7 @@ php artisan key:generate
 # DB_PASSWORD=your_password
 
 # 6. Run migrations and seeders
-php artisan migrate
-php artisan db:seed
+php artisan migrate --seed
 
 # 7. Build frontend assets (optional)
 npm run build
@@ -515,7 +522,7 @@ docker-compose exec app_laravel_api_test npm install
 docker-compose exec app_laravel_api_test npm run build
 
 # 6. Run migrations and seeders
-docker-compose exec app_laravel_api_test php artisan migrate:fresh --seed
+docker-compose exec app_laravel_api_test php artisan migrate --seed
 
 # 7. Access the application
 # API: http://localhost:9001/api/documentation

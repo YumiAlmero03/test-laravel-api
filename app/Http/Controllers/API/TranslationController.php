@@ -318,7 +318,8 @@ class TranslationController extends Controller
     public function export(Request $request)
     {
         $localeFilter = $request->get('locale');
-        $tagFilter = $request->get('tag');
+        $tagFilter = $request->get('tags');
+
         $translations = Translation::query()
             ->select(['key', 'value', 'locale_id'])
             ->with('locale:id,code')
