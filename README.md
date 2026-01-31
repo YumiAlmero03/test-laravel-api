@@ -502,6 +502,7 @@ git clone https://github.com/YumiAlmero03/test-laravel-api.git
 cd test-laravel-api
 
 # 2. Build and start containers
+cp .env.example .env
 docker-compose up -d --build
 
 # 3. Install dependencies inside container
@@ -511,12 +512,16 @@ docker-compose exec app_laravel_api_test composer install
 docker-compose exec app_laravel_api_test cp .env.example .env
 docker-compose exec app_laravel_api_test php artisan key:generate
 
-# 5. Run migrations and seeders
+# 5. Setup Vue
+docker-compose exec app_laravel_api_test npm install
+docker-compose exec app_laravel_api_test npm run build
+
+# 6. Run migrations and seeders
 docker-compose exec app_laravel_api_test php artisan migrate:fresh --seed
 
-# 6. Access the application
-# API: http://localhost:8000
-# UI: http://localhost:8000
+# 7. Access the application
+# API: http://localhost:9001/api/documentation
+# UI: http://localhost:9001
 ```
 
 **Docker services:**
