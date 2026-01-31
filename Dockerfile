@@ -1,45 +1,40 @@
-# Use the official PHP image with FPM
+# Use official PHP 8.2 with extensions
 FROM php:8.4-fpm
 
-# Set the working directory in the container
-WORKDIR /var/www/html
+# Arguments
+ARG USER=www-data
+ARG UID=1000
+ARG GID=1000
 
-# Set environment variables
-ENV APP_ENV=production \
-    APP_DEBUG=false
-
-# Install system dependencies
+# Install system deps
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    zip \
-    unzip \
-    git \
-    curl \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql
+    git unzip curl libzip-dev libonig-dev \
+    && docker-php-ext-install pdo_mysql mbstring zip bcmath sockets
 
 # Install Composer
-COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy the Laravel project into the container
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy project
 COPY . .
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
+COPY .env .env
+# Install PHP deps
+RUN composer install
 
+# Set ownership and permissions
+RUN mkdir -p storage/framework/{views,cache,sessions,testing} storage/logs bootstrap/cache
 
-# Set file permissions for the Laravel project
-RUN mkdir -p /var/www/html/storage/logs \
-    && mkdir -p /var/www/html/bootstrap/cache \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R ${USER}:${USER} storage bootstrap/cache
+RUN chmod -R 775 storage bootstrap/cache
+# Install npm deps (for Vue frontend)
+RUN apt-get install -y nodejs npm
+RUN npm install
+RUN npm run build
 
-RUN chown -R www-data:www-data /var/www/html/storage
+# Expose port 9001
+EXPOSE 9001
 
-# Expose port 9000 for PHP-FPM
-EXPOSE 9000
-
-# Start the PHP-FPM server in foreground
-CMD ["php-fpm", "-F"]
+CMD ["php-fpm"]
