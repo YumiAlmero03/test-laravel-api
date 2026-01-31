@@ -49,7 +49,6 @@ class StoreTranslationRequest extends FormRequest
             ],
 
             'tags' => ['array'],
-            'tags.*' => ['exists:tags,id'],
         ];
     }
 }

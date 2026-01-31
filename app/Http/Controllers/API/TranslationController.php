@@ -8,6 +8,7 @@ use App\Http\Requests\StoreTranslationRequest;
 use App\Http\Requests\UpdateTranslationRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Translation;
+use App\Models\Tag;
 
 class TranslationController extends Controller
 {
@@ -103,7 +104,7 @@ class TranslationController extends Controller
      *                 property="tags",
      *                 type="array",
      *                 example="[1,2]",
-     *                 @OA\Items(type="integer")
+     *                 @OA\Items(type="string")
      *             )
      *         )
      *     ),
@@ -122,8 +123,14 @@ class TranslationController extends Controller
     public function store(StoreTranslationRequest $request)
     {
         $data = $request->validated();
-        $translation = Translation::create($data);
 
+        // process tags
+        foreach ($data['tags'] as $tag) {
+            $tags[] = Tag::firstOrCreate(['name' => $tag])->id;
+        }
+        $data['tags'] = $tags;
+
+        $translation = Translation::create($data);
         if (!empty($data['tags'])) {
             $translation->tags()->sync($data['tags']);
         }
@@ -173,13 +180,14 @@ class TranslationController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             required={"locale_id","key","value"},
-     *             @OA\Property(property="locale_id", type="integer"),
-     *             @OA\Property(property="key", type="string"),
-     *             @OA\Property(property="value", type="string"),
+     *             @OA\Property(property="locale_id", type="integer", example=1),
+     *             @OA\Property(property="key", type="string", example="welcome.title"),
+     *             @OA\Property(property="value", type="string", example="Welcome"),
      *             @OA\Property(
      *                 property="tags",
      *                 type="array",
-     *                 @OA\Items(type="integer")
+     *                 example="[1,2]",
+     *                 @OA\Items(type="string")
      *             )
      *         )
      *     ),
@@ -205,6 +213,13 @@ class TranslationController extends Controller
     {
         try{
             $data = $request->validated();
+            
+            // process tags
+            foreach ($data['tags'] as $tag) {
+                $tags[] = Tag::firstOrCreate(['name' => $tag])->id;
+            }
+            $data['tags'] = $tags;
+
             $translation->update($data);
             if (array_key_exists('tags', $data)) {
                 $translation->tags()->sync($data['tags']);

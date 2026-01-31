@@ -730,7 +730,7 @@
                                     "tags": {
                                         "type": "array",
                                         "items": {
-                                            "type": "integer"
+                                            "type": "string"
                                         },
                                         "example": "[1,2]"
                                     }
@@ -825,19 +825,23 @@
                                 ],
                                 "properties": {
                                     "locale_id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "key": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "welcome.title"
                                     },
                                     "value": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Welcome"
                                     },
                                     "tags": {
                                         "type": "array",
                                         "items": {
-                                            "type": "integer"
-                                        }
+                                            "type": "string"
+                                        },
+                                        "example": "[1,2]"
                                     }
                                 },
                                 "type": "object"
