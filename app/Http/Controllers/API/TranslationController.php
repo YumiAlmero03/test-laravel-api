@@ -248,10 +248,13 @@ class TranslationController extends Controller
             $data = $request->validated();
 
             // process tags
-            foreach ($data['tags'] as $tag) {
-                $tags[] = Tag::firstOrCreate(['name' => $tag])->id;
+            if (!empty($data['tags'])) {
+                foreach ($data['tags'] as $tag) {
+                    $tags[] = Tag::firstOrCreate(['name' => $tag])->id;
+                }
+                $data['tags'] = $tags;
             }
-            $data['tags'] = $tags;
+            
 
             $translation->update($data);
             if (array_key_exists('tags', $data)) {

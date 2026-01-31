@@ -61,7 +61,7 @@ class TranslationApiTest extends TestCase
 
     public function test_can_update_translation()
     {
-        $locale = Locale::firstOrCreate(['code' => 'tg', 'name' => 'Tagalog']);
+        $locale = Locale::firstOrCreate(['code' => 'ml', 'name' => 'Tagalog']);
         $translation = Translation::firstOrCreate([
             'locale_id' => $locale->id,
             'key' => 'update.this',
