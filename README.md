@@ -33,7 +33,6 @@ A minimal Inertia + Vue 3 UI is included purely to demonstrate API integration a
 - **Docker** – containerized setup
 - **Inertia + Vue 3 + TypeScript** – demo UI
 - **Axios** – API communication
-- **Redis** – caching (optional)
 
 ---
 
@@ -156,7 +155,7 @@ Authorization: Bearer 1|abc123...
 ### Authentication
 
 ```http
-POST /api/auth/token
+POST /api/login
 ```
 
 ---
@@ -164,7 +163,6 @@ POST /api/auth/token
 ### Translations
 
 ```http
-GET   /api/translations
 POST   /api/translations
 PUT    /api/translations/{id}
 GET    /api/translations/{id}
@@ -234,7 +232,7 @@ GET /api/translations/search
 
 **Example:**
 ```http
-GET /api/translations/search?locale=en&tag=auth&page=1
+GET /api/translations?locale=en&tag=auth&page=1
 ```
 
 **Response:**
@@ -446,10 +444,10 @@ public function test_export_endpoint_returns_correct_structure()
 
 ### Prerequisites
 
-- PHP 8.2 or higher
+- PHP 8.4 or higher
 - Composer
 - MySQL 8.0 or higher
-- Node.js 18+ and npm (for frontend assets)
+- Node.js 20+ and npm (for frontend assets)
 - Docker & Docker Compose (optional)
 
 ---
@@ -526,9 +524,9 @@ docker-compose exec app_laravel_api_test php artisan migrate:fresh --seed
 
 **Docker services:**
 - `app` - Laravel application (PHP-FPM)
-- `nginx` - Web server (port 8000)
+- `nginx` - Web server (port 9001)
 - `mysql` - Database (port 3306)
-- `redis` - Cache storage (optional)
+- `phpmyadmin` - Database GUI (port 8082)
 
 ---
 
@@ -544,26 +542,6 @@ docker-compose exec app_laravel_api_test php artisan migrate:fresh --seed
 
 ---
 
-## 🧪 Manual API Testing
-
-**Postman workspace:**  
-👉 [https://www.postman.com/thfg88/workspace/share-api-test](https://www.postman.com/thfg88/workspace/share-api-test)
-
-The workspace includes:
-- All API endpoints with example requests
-- Pre-configured authentication flow
-- Sample data for testing
-- Environment variables setup
-
-**Quick Test Flow:**
-1. Get auth token from `/api/auth/token`
-2. Use token in Authorization header for other endpoints
-3. Test CRUD operations on translations
-4. Try search with different filters
-5. Test export endpoint performance
-
----
-
 ## 📁 Project Structure
 
 ```
@@ -571,9 +549,7 @@ The workspace includes:
 │   ├── Http/
 │   │   ├── Controllers/     # API endpoint controllers
 │   │   ├── Requests/        # Form validation classes
-│   │   └── Resources/       # API response transformers
 │   ├── Models/              # Eloquent models
-│   └── Providers/           # Service providers
 ├── database/
 │   ├── migrations/          # Database schema
 │   ├── seeders/             # Data seeders
@@ -583,7 +559,6 @@ The workspace includes:
 │   └── web.php              # Web routes (Inertia UI)
 ├── tests/
 │   ├── Feature/             # Integration tests
-│   └── Unit/                # Unit tests
 ├── resources/
 │   ├── js/                  # Vue 3 TypeScript frontend
 │   └── views/               # Blade templates
@@ -726,7 +701,7 @@ Tested with **100,000+ translation records**:
 
 **Test Environment:**
 - MySQL 8.0
-- PHP 8.2
+- PHP 8.4
 - 4GB RAM
 - SSD storage
 
@@ -805,7 +780,6 @@ This project is created for evaluation purposes.
 
 ## 👤 Author
 
-**Laravel Senior Developer Code Test Submission**  
 GitHub: [@YumiAlmero03](https://github.com/YumiAlmero03)
 
 ---
@@ -813,7 +787,6 @@ GitHub: [@YumiAlmero03](https://github.com/YumiAlmero03)
 ## 📞 Contact & Support
 
 For questions about this submission:
-- Review the [Postman workspace](https://www.postman.com/thfg88/workspace/share-api-test)
 - Check the code on [GitHub](https://github.com/YumiAlmero03/test-laravel-api)
 
 ---
