@@ -25,6 +25,7 @@ class SampleTranslationSeeder extends Seeder
                 "tg" => "Aking Aplikasyon",
                 "de" => "Meine Anwendung",
                 "es" => "Mi Aplicación",
+                "jp" => "私のアプリケーション",
                 "tag" => ['Home']
             ],
             [
@@ -33,7 +34,26 @@ class SampleTranslationSeeder extends Seeder
                 "tg" => "Ito ay isang halimbawa ng aplikasyon.",
                 "de" => "Dies ist eine Beispielanwendung.",
                 "es" => "Esta es una aplicación de ejemplo.",
+                "jp" => "これはサンプルアプリケーションです。",
                 "tag" => ['Home']
+            ],
+            [
+                "key" => "link.docs",
+                "en" => "Go to OpenAPI Documentation",
+                "tg" => "Pumunta sa Dokumentasyon ng OpenAPI",
+                "de" => "Gehe zur OpenAPI-Dokumentation",
+                "es" => "Ir a la Documentación de la OpenAPI",
+                "jp" => "OpenAPIドキュメントへ移動",
+                "tag" => ['Header']
+            ],
+            [
+                "key" => "link.languages",
+                "en" => "Languages",
+                "tg" => "Mga Wika",
+                "de" => "Sprachen",
+                "es" => "Idiomas",
+                "jp" => "言語",
+                "tag" => ['Header']
             ],
             [
                 "key" => "button.submit",
@@ -41,6 +61,7 @@ class SampleTranslationSeeder extends Seeder
                 "tg" => "Isumite",
                 "de" => "Einreichen",
                 "es" => "Enviar",
+                "jp" => "送信",
                 "tag" => ['Form']
             ],
             [
@@ -49,6 +70,7 @@ class SampleTranslationSeeder extends Seeder
                 "tg" => "Kanselahin",
                 "de" => "Abbrechen",
                 "es" => "Cancelar",
+                "jp" => "キャンセル",
                 "tag" => ['Form']
             ],
             [
@@ -57,15 +79,44 @@ class SampleTranslationSeeder extends Seeder
                 "tg" => "Maligayang pagdating sa aming aplikasyon!",
                 "de" => "Willkommen in unserer Anwendung!",
                 "es" => "¡Bienvenido a nuestra aplicación!",
+                "jp" => "私たちのアプリケーションへようこそ！",
                 "tag" => ['Home']
             ],
             [
                 "key" => "button.language",
-                "en" => "Language",
-                "tg" => "Wika",
-                "de" => "Sprache",
-                "es" => "Idioma",
+                "en" => "Select Language",
+                "tg" => "Pumili ng Wika",
+                "de" => "Sprache auswählen",
+                "es" => "Seleccionar Idioma",
+                "jp" => "言語を選択",
                 "tag" => ['Header']
+            ],
+            [
+                "key" => "form.credentials",
+                "en" => "Credentials",
+                "tg" => "Mga Kredensyal",
+                "de" => "Anmeldeinformationen",
+                "es" => "Credenciales",
+                "jp" => "資格情報",
+                "tag" => ['Form']
+            ],
+            [
+                "key" => "form.password",
+                "en" => "Password",
+                "tg" => "Password",
+                "de" => "Passwort",
+                "es" => "Contraseña",
+                "jp" => "パスワード",
+                "tag" => ['Form']
+            ],
+            [
+                "key" => "form.email",
+                "en" => "Email",
+                "tg" => "Email",
+                "de" => "E-Mail",
+                "es" => "Correo electrónico",
+                "jp" => "メール",
+                "tag" => ['Form']
             ]
         ];
 

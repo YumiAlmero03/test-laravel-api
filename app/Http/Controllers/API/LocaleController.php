@@ -17,7 +17,6 @@ class LocaleController extends Controller
      *     @OA\Get(
      *         summary="List all locales",
      *         tags={"Locales"},
-     *         security={{"bearerAuth":{}}},
      *         @OA\Response(
      *             response=200,
      *             description="List of locales",

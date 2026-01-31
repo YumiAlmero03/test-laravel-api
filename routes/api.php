@@ -16,6 +16,9 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'issueToken']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/locales', [LocaleController::class, 'index']);
+Route::get('/translations/export', [TranslationController::class, 'export']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'translations'], function () {
@@ -36,7 +39,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::group(['prefix' => 'locales'], function () {
-        Route::get('/', [LocaleController::class, 'index']);
         Route::get('/{locale}', [LocaleController::class, 'show']);
         Route::post('/', [LocaleController::class, 'store']);
         Route::put('/{locale}', [LocaleController::class, 'update']);

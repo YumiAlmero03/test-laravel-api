@@ -250,7 +250,6 @@ class TranslationController extends Controller
      *     path="/translations/export",
      *     summary="Export translations for frontend",
      *     tags={"Translations"},
-     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Translations grouped by locale",
@@ -261,17 +260,22 @@ class TranslationController extends Controller
      *     )
      * )
      */
-    public function export($page)
+    public function export(Request $request)
     {
+        $localeFilter = $request->get('locale');
+        $tagFilter = $request->get('tag');
         $translations = Translation::query()
             ->select(['key', 'value', 'locale_id'])
             ->with('locale:id,code')
+            ->when($localeFilter, fn ($q) =>
+                $q->whereHas('locale', fn ($q2) =>
+                    $q2->where('code', $localeFilter)
+                )
+            )
+            ->withTags($tagFilter ? explode(',', $tagFilter) : [])
             ->orderBy('id')
             ->get()
-            ->groupBy(fn ($t) => $t->locale->code)
-            ->map(fn ($items) =>
-                $items->pluck('value', 'key')
-            );
+            ->pluck('value', 'key');
 
         return response()->json($translations);
     }
